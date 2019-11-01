@@ -1,0 +1,33 @@
+{% extends "libmgmtproject/layout.html" %}
+
+{% block 'title' %}
+  Welcome
+{% endblock %}
+
+{% block 'container' %}
+  <h2>Welcome to Library Management System</h2>
+  <form action="{% url 'libapp:register_user' %}" method="POST">
+    {% csrf_token %}
+    <p>
+      <input type="text" name="username" placeholder="Enter Username">
+    </p>
+    <p>
+      <input type="password" name="password" placeholder="Enter Password">
+    </p>
+    <p>
+      Country
+      <select name="country" id="">
+        <option value="usa">USA</option>
+        <option value="india">India</option>
+      </select>
+    </p>
+    <p>
+      Gender
+      <input type="radio" name="gender" id="" value="M">Male&nbsp;
+      <input type="radio" name="gender" id="" value="F">Female
+    </p>
+    <p>
+      <button type="submit">Register</button>
+    </p>
+  </form>
+{% endblock %}

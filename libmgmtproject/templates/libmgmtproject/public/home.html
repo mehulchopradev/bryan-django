@@ -1,0 +1,21 @@
+{% extends "libmgmtproject/layout.html" %}
+
+{% block 'title' %}
+  Welcome
+{% endblock %}
+
+{% block 'container' %}
+  <h2>Welcome to Library Management System</h2>
+  <form action="">
+    <p>
+      <input type="text" placeholder="Enter Username">
+    </p>
+    <p>
+      <input type="password" placeholder="Enter Password">
+    </p>
+    <p>
+      <button type="submit">Login</button>
+    </p>
+    <a href="{% url 'libapp:register' %}">Register Here!</a>
+  </form>
+{% endblock %}

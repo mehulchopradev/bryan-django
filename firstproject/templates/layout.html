@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+    {% block 'title' %}
+    {% endblock %}
+  </title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+  <img src="{% static 'images/library.jpeg' %}" alt="" class="banner">
+  <div class="menu">
+    <a href="{% url 'home' %}">Home</a>&nbsp;
+    <a href="{% url 'aboutus' %}">About us</a>&nbsp;
+    <a href="{% url 'contactus' %}">Contact us</a>
+  </div>
+  <div class="container">
+    {% block 'container' %}
+    {% endblock %}
+  </div>
+  <footer>
+    All Rights Reserved 2019-20
+  </footer>
+</body>
+</html>
