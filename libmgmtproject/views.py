@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Student
+from django.db.utils import IntegrityError
 
 # Create your views here.
 
@@ -16,7 +18,22 @@ def register_user(request):
   gender = data['gender']
   country = data['country']
 
-  # insert this data in the database TODO:
+  student = Student(username=username, password=password, gender=gender, country=country)
 
-  print(username, password, gender, country)
-  return HttpResponse('Hey registered!')
+  try:
+    student.save()
+  except IntegrityError:
+    return HttpResponse('Username already exists')
+
+  # print(username, password, gender, country)
+  # redirecting the user to a different url
+  return HttpResponseRedirect(reverse('libapp:home'))
+
+def auth(request):
+  username = request.POST['username']
+  password = int(request.POST['password'])
+
+  students = Student.objects.filter(username=username, password=password)
+  if students:
+    return HttpResponse('Valid user')
+  return HttpResponseRedirect(reverse('libapp:home'))
