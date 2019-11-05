@@ -1,0 +1,21 @@
+{% extends "libmgmtproject/layout.html" %}
+
+{% block 'title' %}
+  Welcome To ur app
+{% endblock %}
+
+{% block 'container' %}
+  <span>Welcome ???</span>
+  <a>Logout</a>
+
+  <h2>Library Management System</h2>
+  <h3>{{ book.title }}</h3>
+  <i>{{ book.price }}</i><br>
+  <i>{{ book.pages }}</i><br>
+  <h3>{{ book.published_date }}</h3>
+  <i>{{ book.noofcopies }}</i>
+
+  <h3>Publication House</h3>
+  <p>{{ book.publication.name }}</p>
+  <p>{{ book.publication.ratings }}</p>
+{% endblock %}

@@ -35,5 +35,5 @@ def auth(request):
 
   students = Student.objects.filter(username=username, password=password)
   if students:
-    return HttpResponse('Valid user')
+    return HttpResponseRedirect(reverse('libapp:welcome'))
   return HttpResponseRedirect(reverse('libapp:home'))

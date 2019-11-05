@@ -1,0 +1,40 @@
+{% extends "libmgmtproject/layout.html" %}
+
+{% block 'title' %}
+  Welcome To ur app
+{% endblock %}
+
+{% block 'container' %}
+  <span>Welcome ???</span>
+  <a>Logout</a>
+
+  <h2>Library Management System</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Pages</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in booklist %}
+        <tr>
+          <td>
+            {{ book.title }}
+          </td>
+          <td>
+            {{ book.price }}
+          </td>
+          <td>
+            {{ book.pages }}
+          </td>
+          <td>
+            <a href="{% url 'libapp:getbook' book.id %}">Details</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

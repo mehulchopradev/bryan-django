@@ -11,6 +11,18 @@ class Student(models.Model):
   def __str__(self):
       return 'Id : {0}\nUsername: {1}'.format(self.id, self.username)
 
+class PublicationHouse(models.Model):
+  # id
+  name = models.CharField(max_length=30, null=False)
+  ratings = models.IntegerField(null=False)
+
+  # one to many (Book)
+  # book_set
+
+  def __str__(self):
+      return self.name
+  
+
 class Book(models.Model):
   # id
   title = models.CharField(max_length=50, null=False)
@@ -18,8 +30,19 @@ class Book(models.Model):
   pages = models.IntegerField(null=False)
   noofcopies = models.IntegerField(null=False)
   published_date = models.DateField(null=False)
+  publication = models.ForeignKey(PublicationHouse, on_delete=models.CASCADE)
+
+  # many to one (PublicationHouse)
+  # one to many (Review)
+  # review_set
 
   def __str__(self):
       return self.title
-  
-  
+
+class Review(models.Model):
+  # id
+  description = models.CharField(max_length=100, null=False)
+  fullname = models.CharField(max_length=50, null=False)
+  book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+  # many to one (Book)
