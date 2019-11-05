@@ -8,6 +8,9 @@ class Student(models.Model):
   gender = models.CharField(max_length=1, null=False)
   country = models.CharField(max_length=10, null=True)
 
+  # one to many (Book)
+  # book_set
+
   def __str__(self):
       return 'Id : {0}\nUsername: {1}'.format(self.id, self.username)
 
@@ -31,10 +34,13 @@ class Book(models.Model):
   noofcopies = models.IntegerField(null=False)
   published_date = models.DateField(null=False)
   publication = models.ForeignKey(PublicationHouse, on_delete=models.CASCADE)
+  students = models.ManyToManyField(Student)
 
   # many to one (PublicationHouse)
   # one to many (Review)
   # review_set
+
+  # one to many (Student)
 
   def __str__(self):
       return self.title

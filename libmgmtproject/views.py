@@ -35,5 +35,12 @@ def auth(request):
 
   students = Student.objects.filter(username=username, password=password)
   if students:
+    # remember username and id of the user in the session
+    student = students[0]
+
+    session = request.session
+    session['username'] = username
+    session['userid'] = student.id
+
     return HttpResponseRedirect(reverse('libapp:welcome'))
   return HttpResponseRedirect(reverse('libapp:home'))

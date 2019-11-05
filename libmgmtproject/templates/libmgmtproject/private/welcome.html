@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block 'container' %}
-  <span>Welcome ???</span>
-  <a>Logout</a>
+  <span>Welcome {{ username }}</span>
+  <a href="{% url 'libapp:logout' %}">Logout</a>
 
   <h2>Library Management System</h2>
   <table border="1">
@@ -15,6 +15,7 @@
         <th>Title</th>
         <th>Price</th>
         <th>Pages</th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
@@ -32,6 +33,15 @@
           </td>
           <td>
             <a href="{% url 'libapp:getbook' book.id %}">Details</a>
+          </td>
+          <td>
+            {% if book.cannotissue %}
+              <i>Cannot Issue</i>
+            {% elif book.alreadyissued %}
+              <a href="{% url 'libapp:returnbook' book.id %}">Return Book</a>
+            {% else %}
+              <a href="{% url 'libapp:issuebook' book.id %}">Issue Book</a>
+            {% endif %}
           </td>
         </tr>
       {% endfor %}
