@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 # Create your models here.
 class Student(models.Model):
@@ -34,7 +35,8 @@ class Book(models.Model):
   noofcopies = models.IntegerField(null=False)
   published_date = models.DateField(null=False)
   publication = models.ForeignKey(PublicationHouse, on_delete=models.CASCADE)
-  students = models.ManyToManyField(Student)
+  # students = models.ManyToManyField(Student)
+  students = models.ManyToManyField(Student, through='BooksIssued')
 
   # many to one (PublicationHouse)
   # one to many (Review)
@@ -52,3 +54,10 @@ class Review(models.Model):
   book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
   # many to one (Book)
+
+class BooksIssued(models.Model):
+  # id
+  student = models.ForeignKey(Student, on_delete=models.CASCADE)
+  book = models.ForeignKey(Book, on_delete=models.CASCADE)
+  issue_date = models.DateField(null=False, default=date.today())
+  return_date = models.DateField(null=True)

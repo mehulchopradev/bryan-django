@@ -6,14 +6,15 @@
 
 {% block 'container' %}
   <h2>Welcome to Library Management System</h2>
-  <form action="{% url 'libapp:auth' %}" method="POST">
+  <form action="{% url 'libapp:login' %}" method="POST" novalidate="novalidate">
     {% csrf_token %} 
-    <p>
+    <!-- <p>
       <input type="text" name="username" placeholder="Enter Username">
     </p>
     <p>
       <input type="password" name="password" placeholder="Enter Password">
-    </p>
+    </p> -->
+    {{form.as_p}}
     <p>
       <button type="submit">Login</button>
     </p>
