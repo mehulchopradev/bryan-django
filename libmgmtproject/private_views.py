@@ -92,3 +92,12 @@ def return_book(request, bookid):
   booksissued.save()
 
   return HttpResponseRedirect(reverse('libapp:welcome'))
+
+def get_profile_pic(request):
+  if 'username' not in request.session:
+    return HttpResponseRedirect(reverse('libapp:home'))
+
+  student = Student.objects.get(pk=request.session['userid'])
+  file_path = student.profilepicpath.path
+  with open(file_path, mode='rb') as fp:
+    return HttpResponse(fp.read(), content_type='image/*')

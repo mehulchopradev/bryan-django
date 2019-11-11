@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import home, register, register_user, auth, loginform, LoginView, LoginFormView
-from .private_views import welcome, get_book_details, logout, issue_book, return_book
+from .views import home, register, register_user, auth, loginform, LoginView, LoginFormView, RegisterFormView
+from .private_views import welcome, get_book_details, logout, issue_book, return_book, get_profile_pic
 from django.views.generic import TemplateView
 
 # libmgmt/
@@ -18,6 +18,8 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     path('issue-book/<int:bookid>', issue_book, name='issuebook'),
     path('return-book/<int:bookid>', return_book, name='returnbook'),
-    path('login/', LoginFormView.as_view(), name='login')
+    path('login/', LoginFormView.as_view(), name='login'),
+    path('register-here/', RegisterFormView.as_view(), name='registerhere'),
+    path('profile-pic/', get_profile_pic, name='profilepic')
     # path('login/', loginform, name='login')
 ]

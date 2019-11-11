@@ -1,5 +1,8 @@
 from django.db import models
-from datetime import date
+from datetime import date, datetime
+
+def handle_profile_pic_upload(student, file_name):
+  return '{0}_{1}_{2}'.format(student.username, datetime.now(), file_name)
 
 # Create your models here.
 class Student(models.Model):
@@ -8,6 +11,7 @@ class Student(models.Model):
   password = models.IntegerField(null=False)
   gender = models.CharField(max_length=1, null=False)
   country = models.CharField(max_length=10, null=True)
+  profilepicpath = models.ImageField(null=True, blank=True, upload_to=handle_profile_pic_upload)
 
   # one to many (Book)
   # book_set

@@ -6,6 +6,7 @@
 
 {% block 'container' %}
   <span>Welcome {{ username }}</span>
+  <img class="profile" src="{% url 'libapp:profilepic' %}"/>
   <a href="{% url 'libapp:logout' %}">Logout</a>
 
   <h2>Library Management System</h2>

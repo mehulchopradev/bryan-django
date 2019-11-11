@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from django.views.generic.edit import FormView
 from .models import Student
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 from django.db.utils import IntegrityError
 
 # Create your views here.
@@ -117,4 +117,31 @@ class LoginFormView(FormView):
       session['userid'] = student.id
 
       return HttpResponseRedirect(reverse('libapp:welcome'))
+    return HttpResponseRedirect(reverse('libapp:login'))
+
+class RegisterFormView(FormView):
+  template_name = 'libmgmtproject/public/register.html'
+  form_class = RegisterForm
+
+  def form_valid(self, form):
+    ''' data = form.cleaned_data
+
+    student = Student(**data) 
+
+    try:
+      student.save()
+    except IntegrityError:
+      return HttpResponse('Username already exists')
+
+    # print(username, password, gender, country)
+    # redirecting the user to a different url
+    return HttpResponseRedirect(reverse('libapp:login')) '''
+
+    try:
+      form.save()
+    except IntegrityError:
+      return HttpResponse('Username already exists')
+
+    # print(username, password, gender, country)
+    # redirecting the user to a different url
     return HttpResponseRedirect(reverse('libapp:login'))

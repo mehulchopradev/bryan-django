@@ -6,9 +6,9 @@
 
 {% block 'container' %}
   <h2>Welcome to Library Management System</h2>
-  <form action="{% url 'libapp:register_user' %}" method="POST">
+  <form action="{% url 'libapp:registerhere' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <p>
+    <!-- <p>
       <input type="text" name="username" placeholder="Enter Username">
     </p>
     <p>
@@ -25,7 +25,8 @@
       Gender
       <input type="radio" name="gender" id="" value="M">Male&nbsp;
       <input type="radio" name="gender" id="" value="F">Female
-    </p>
+    </p> -->
+    {{ form.as_p }}
     <p>
       <button type="submit">Register</button>
     </p>
