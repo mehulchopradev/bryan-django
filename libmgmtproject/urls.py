@@ -1,7 +1,12 @@
-from django.urls import path
+from django.urls import path, include
 from .views import home, register, register_user, auth, loginform, LoginView, LoginFormView, RegisterFormView
-from .private_views import welcome, get_book_details, logout, issue_book, return_book, get_profile_pic
+from .private_views import welcome, get_book_details, logout, issue_book, return_book, get_profile_pic, PublicationListApiView, PublicationRetrieveApiView\
+    , PublicationApiView
 from django.views.generic import TemplateView
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('publication-houses', PublicationApiView, 'publication-houses')
 
 # libmgmt/
 
@@ -20,6 +25,14 @@ urlpatterns = [
     path('return-book/<int:bookid>', return_book, name='returnbook'),
     path('login/', LoginFormView.as_view(), name='login'),
     path('register-here/', RegisterFormView.as_view(), name='registerhere'),
-    path('profile-pic/', get_profile_pic, name='profilepic')
+    path('profile-pic/', get_profile_pic, name='profilepic'),
+    path('', include(router.urls))
     # path('login/', loginform, name='login')
 ]
+
+'''
+
+ path('publication-houses/', PublicationListApiView.as_view()),
+    path('publication-houses/<int:pk>/', PublicationRetrieveApiView.as_view())
+
+'''

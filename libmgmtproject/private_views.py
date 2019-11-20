@@ -2,6 +2,10 @@ from django.shortcuts import render, reverse
 from .models import Book, Student, BooksIssued
 from django.http import HttpResponse, HttpResponseRedirect
 from datetime import date
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.viewsets import ModelViewSet
+from .serializers import PublicationHouseSerializer
+from .models import PublicationHouse
 
 def welcome(request):
   if 'username' not in request.session:
@@ -101,3 +105,22 @@ def get_profile_pic(request):
   file_path = student.profilepicpath.path
   with open(file_path, mode='rb') as fp:
     return HttpResponse(fp.read(), content_type='image/*')
+
+class PublicationListApiView(ListAPIView):
+  serializer_class = PublicationHouseSerializer
+  queryset = PublicationHouse.objects.all()
+
+class PublicationRetrieveApiView(RetrieveAPIView):
+  serializer_class = PublicationHouseSerializer
+  queryset = PublicationHouse.objects.all()
+
+class PublicationApiView(ModelViewSet):
+  serializer_class = PublicationHouseSerializer
+  # queryset = PublicationHouse.objects.order_by('-ratings')
+
+  def get_queryset(self):
+    queryparams = self.request.query_params
+    if 'ratings' in queryparams:
+      return PublicationHouse.objects.filter(ratings=int(queryparams['ratings']))
+    
+    return PublicationHouse.objects.order_by('-ratings')
